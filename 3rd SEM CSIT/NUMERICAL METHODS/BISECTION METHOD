@@ -1,0 +1,46 @@
+#include<stdio.h>
+#include<math.h>
+
+//Define the function (1/x)-sin(x)
+double f(double x){
+	return x*x*x+x*x-3*x-3;
+}
+
+int main(){
+	printf("---Swornim Maharjan---\n");
+	double a,b,c;
+	int iteration=0;
+	
+	//Initial interval [a,b] where f(a) and f(b) have opposite signs
+	a=1; // You can adjust based on where the root lies
+	b=2;
+	
+	// Check if intial interval is valid.
+	if (f(a) * f(b) >=0){
+		printf("Invalid interval: f(a) and f(b) must have opposite signs.\n");
+		return -1;
+	}
+	printf("Bisection Method for f(x)=(1/x)-sin(x)\n");
+	printf("Initial interval:[%.3f,%.3f]\n\n",a,b);
+	
+	//Loop until desired precision (3 decimal places)
+	while((b-a)>=0.001){
+		iteration++;
+		c= (a+b) / 2.0; //midpoint
+		
+		printf("ITeration %d: a=%.3f,b=%.3f,c=%.3f, f(c)=%.3f\n",iteration,a,b,c,f(c));
+		
+		//Check if c is root
+		if(fabs(f(c))<0.001) {
+			break;
+		}
+		
+		//Decide the side to repeat
+		if (f(a) * f(c)<0)
+		b=c;
+		else
+		a=c;
+	}
+	printf("\nAppropriate root after %d iterations: %.3f\n",iteration,c);
+	return 0;
+}
