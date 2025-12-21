@@ -1,0 +1,36 @@
+#include<stdio.h>
+#include<math.h>
+//funciton
+double f(double x){
+	return (x*x*x)+(x*x)-(3*x)-3;
+}
+double f_prime(double x){
+	return (3*x*x)+(2*x)-3;
+}
+int main (){
+	printf("---Swornim Maharjan---\n");
+	double x0,x1;
+	int iteration=0;
+	const double tolerance=0.001;
+	
+	printf("Newton-raphson method for f(x)=x^3+x^2-3x-3\n");
+	printf("enter initial guess x0: ");
+	scanf("%lf",&x0);
+	while (iteration<100){
+		iteration++;
+		
+		if(fabs(f_prime(x0))<1e-6){
+			printf("error: f'(x)is zero");
+		}
+		x1=x0-f(x0)/f_prime(x0);
+		printf("iteration %d:x=%.6f,f(x)=%6f\n",iteration,x1,f(x1));
+		if(fabs(x1-x0)<tolerance)
+		break;
+			
+		x0=x1;
+	}
+	printf("\nestimated root=%.6f\n",x1);
+	printf("f(root)         =%.6f\n",f(x1));
+	printf("total iteration: %d\n", iteration);
+	return 0;
+}
