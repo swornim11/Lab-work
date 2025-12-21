@@ -1,0 +1,16 @@
+LIBRARY ieee;
+use ieee.std_logic_1164.ALL;
+entity half_adder_swornim IS
+PORT(
+A: IN STD_LOGIC;
+B:IN STD_LOGIC;
+C: IN STD_LOGIC;
+SUM: OUT STD_LOGIC;
+CARRY:OUT STD_LOGIC
+);
+end half_adder_swornim;
+ARCHITECTURE BEHAVIOUR of half_adder_swornim IS
+BEGIN
+SUM <= A XOR B XOR C;
+CARRY <= A AND B AND C;
+END BEHAVIOUR;
