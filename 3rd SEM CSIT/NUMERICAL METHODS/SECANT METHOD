@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <math.h>
+
+double f(double x) {
+    return x*x*x+x*x-3*x-3;
+}
+
+int main() {
+    double x0, x1, x2;
+    int i = 0;
+    printf("---Swornim Maharjan---\n");
+    printf("To find the root of f(x) =x^3+x^2-3x-3 using secant method\n");
+
+    printf("Enter first initial guess: ");
+    scanf("%lf", &x0);
+
+    printf("Enter second initial guess: ");
+    scanf("%lf", &x1);
+
+    do {
+        x2 = x1 - f(x1) * (x1 - x0) / (f(x1) - f(x0));
+        i++;
+
+        printf("Iteration %d: x = %.5lf, f(x) = %.5lf\n",
+               i, x2, f(x2));
+
+        x0 = x1;
+        x1 = x2;
+
+    } while (fabs(f(x2)) > 0.001 && i < 100);
+
+    printf("\nEstimated root = %.5lf", x2);
+    printf("\nf(root) = %.5lf", f(x2));
+    printf("\nTotal iterations = %d\n", i);
+
+    return 0;
+}
