@@ -1,0 +1,45 @@
+#include <graphics.h>
+#include <conio.h>
+#include <iostream>
+#include <math.h>
+using namespace std;
+
+int main() {
+	cout<<"---Swornim Maharjan---"<<endl;
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, "");
+
+    float x0, y0, x1, y1;
+    cout << "Enter x0 y0: ";
+    cin >> x0 >> y0;
+    cout << "Enter x1 y1: ";
+    cin >> x1 >> y1;
+
+    float dx = x1 - x0;
+    float dy = y1 - y0;
+
+    int steps = (fabs(dx) > fabs(dy)) ? fabs(dx) : fabs(dy);
+
+    float Xinc = dx / steps;
+    float Yinc = dy / steps;
+
+    float X = x0;
+    float Y = y0;
+
+    cout << "\nPlotted Points:\n";
+
+    for (int i = 0; i <= steps; i++) {
+        int px = round(X);
+        int py = round(Y);
+
+        putpixel(px, py, WHITE);
+        cout << "(" << px << ", " << py << ")\n";
+
+        X += Xinc;
+        Y += Yinc;
+    }
+
+    getch();
+    closegraph();
+    return 0;
+}
