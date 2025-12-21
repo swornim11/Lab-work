@@ -1,0 +1,31 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity addsub is
+    port(
+        M : in  std_logic;                      
+        A, B : in  std_logic_vector(3 downto 0);
+        Sum : out std_logic_vector(3 downto 0);
+        Cout, OVERFLOW : out std_logic
+    );
+end addsub;
+
+architecture easy of addsub is
+    signal result_ext : signed(4 downto 0);
+begin
+    process(A, B, M)
+    begin
+        if M = '0' then
+            result_ext <= signed('0' & A) + signed('0' & B);  
+        else
+            result_ext <= signed('0' & A) - signed('0' & B);  
+        end if;
+
+        Sum <= std_logic_vector(result_ext(3 downto 0));
+        Cout <= result_ext(4);
+
+       
+        OVERFLOW <= result_ext(4) xor result_ext(3);
+    end process;
+end easy;
