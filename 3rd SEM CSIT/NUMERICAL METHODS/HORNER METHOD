@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+int main() {
+    int n, i;
+    double x, result;
+    printf("---Swornim Maharjan---\n");
+    printf("Horner's method for polynomial Evaluation.\n\n");
+    printf("Enter the degree of the polynomial: ");
+    scanf("%d", &n);
+
+    double a[n + 1];
+
+    printf("Enter the coefficients (from highest degree to constant term):\n");
+    for (i = 0; i <= n; i++) {
+        scanf("%lf", &a[i]);
+    }
+
+    printf("Enter the value of x: ");
+    scanf("%lf", &x);
+
+    result = a[0];
+    for (i = 1; i <= n; i++) {
+        result = result * x + a[i];
+    }
+
+    printf("Value of the polynomial at x = %.2lf is %.3lf\n", x, result);
+
+    return 0;
+}
