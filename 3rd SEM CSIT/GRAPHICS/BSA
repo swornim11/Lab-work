@@ -1,0 +1,83 @@
+#include <iostream>
+#include<graphics.h>
+#include<conio.h>
+
+using namespace std;
+
+int main() {
+	cout<<"---Swornim Maharjan---"<<endl;
+	int x1,x2,y1,y2;
+	cout<<"Enter (x1,y1): ";
+	cin>>x1>>y1;
+	cout<<"Enter (x2,y2): ";
+	cin>>x2>>y2;
+	
+	if(x1>x2){
+		int temp = x1;
+		x1 = x2;
+		x2 = temp;
+	}
+	if( y1>y2){
+		int temp = y1;
+		y1 = y2;
+		y2 = temp;
+	}
+	int gd = DETECT,gm;
+	
+	initgraph(&gd, &gm, NULL);
+
+	
+	int dx = x2-x1;
+	int dy = y2-y1;
+	
+	int Xin = x1;
+	int Yin = y1;
+	int p;
+	
+	if(dy>=dx){
+		p = 2 * dx - dy;
+	
+	putpixel(Xin,Yin,WHITE);
+	}
+	else if(dx>dy){
+		 p = 2 * dy - dx;
+	
+	putpixel(Xin,Yin,WHITE);
+	}
+	
+	int k=0;
+	cout<<"K   	 Pk     Xk+1 Yk+1"<<endl;
+	if(dx>dy){
+		while(Xin < x2){
+			if(p<0){
+				p = p + 2 * dy;
+			}
+			else{
+				Yin++;
+				p = p + 2*(dy-dx);
+			}
+			Xin++;
+			cout<<k<<"\t"<<p<<" \t( "<<Xin<<","<<Yin<<")\n";
+			k++;
+			putpixel(Xin,Yin,WHITE);
+		}
+	}
+	if(dy>=dx){
+		while(Yin<y2){
+			if(p<0){
+				p = p+2*dx;
+			}
+			else{
+				Xin++;
+				p = p + 2 * (dx-dy);
+			}
+			Yin++;
+			cout<<k<<"\t"<<p<<"\t("<<Xin<<","<<Yin<<")\n";
+			k++;
+			putpixel(Xin,Yin,WHITE);
+		}
+	}
+	getch();
+	closegraph();
+	return 0;
+}
