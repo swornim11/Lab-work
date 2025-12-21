@@ -1,0 +1,117 @@
+#include<iostream>
+#define MAX 20
+using namespace std;
+class stack{
+	private:
+		int a[MAX];
+		int top;
+	public:
+		stack(){
+			top = -1;
+		}
+		void Push(int x){
+			if(Overflow()){
+				cout<<"Stack Overflow"<<endl;
+				return;
+			}
+			top++;
+			a[top] = x;
+			cout<<x<<" Pushed"<<endl;
+		}
+		void Pop(){
+			if(Underflow()){
+				cout<<"Stack is empty"<<endl;
+				return;
+			}
+			cout<<a[top]<<" Poped"<<endl;
+			top--;
+			
+		}
+		void MakeEmptyStack(){
+			top = -1;
+			cout<<"Now, the stack is empty"<<endl;
+		}
+		bool Underflow(){
+			if(top==-1){
+				return true;
+			}
+			return false;
+		}
+		bool Overflow(){
+			if(top==MAX-1){
+				return true;
+			}
+			return false;
+		}
+		
+		void Traverse(){
+			if(Underflow()){
+				cout<<"Stack is empty"<<endl;
+				return;
+			}
+			for(int i=top;i>=0;i--){
+				cout<<a[i]<<" ";
+			}
+			cout<<endl;
+			
+		}
+		int Top(){
+			if(top<0){
+				cout<<"Stack is empty"<<endl;
+				return -1;
+			}
+			return a[top];
+		}
+};
+int main(){
+	stack s;
+	int key;
+	do{
+		cout<<"----------MENU----------"<<endl;
+		cout<<"Swornim Maharjan"<<endl;
+		cout<< " 1. Push\n 2. Pop\n 3. Empty\n 4. Top\n 5. Traverse\n 6. Check Overflow\n 7. Check Underflow\n 8.Exit"<<endl;
+		cin>>key;
+		switch(key){
+			case 1:
+				int a;
+				cout<<"Enter Element to Push: ";
+				cin>>a;
+				s.Push(a);
+				break;
+			case 2:
+				s.Pop();
+				break;
+			case 3:
+				s.MakeEmptyStack();
+				break;
+			case 4:
+				cout<<s.Top()<<endl;
+				break;
+			case 5:
+				s.Traverse();
+				break;
+			case 6:
+				if(s.Overflow()){
+					cout<<"Stack Overflow"<<endl;
+					break;
+				}
+				cout<<"Stack is not Full"<<endl;
+				break;
+			case 7:
+				if(s.Underflow()){
+					cout<<"Stack is Empty"<<endl;
+					break;
+				}
+				cout<<"Stack is not Empty"<<endl;
+				break;
+			case 8:
+				cout<<"Exitting..."<<endl;
+				break;
+			default:
+				cout<<"Invalid Input"<<endl;
+				break;
+		}
+	}while(key!=8);
+	return 0;
+
+}
