@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+int main() {
+    int n, i, j;
+    float x[20], y[20][20], xp, h, u, sum, term;
+    printf("----Swornim Maharjan-----\n");
+
+    printf("--- Newton's Backward Difference Interpolation ---\n");
+
+    printf("\nEnter number of data points: ");
+    scanf("%d", &n);
+
+    printf("\nEnter x values:\n");
+    for (i = 0; i < n; i++) {
+        printf("x%d = ", i);
+        scanf("%f", &x[i]);
+    }
+
+    printf("\nEnter corresponding y values:\n");
+    for (i = 0; i < n; i++) {
+        printf("f(x%d) = ", i);
+        scanf("%f", &y[i][0]);
+    }
+
+    for (j = 1; j < n; j++) {
+        for (i = n - 1; i >= j; i--) {
+            y[i][j] = y[i][j - 1] - y[i - 1][j - 1];
+        }
+    }
+
+    printf("\nEnter the value of x to find f(x): ");
+    scanf("%f", &xp);
+
+    h = x[1] - x[0];
+    u = (xp - x[n - 1]) / h;
+
+    sum = y[n - 1][0];
+    term = 1;
+
+    for (i = 1; i < n; i++) {
+        term = term * (u + (i - 1)) / i;
+        sum = sum + term * y[n - 1][i];
+    }
+
+    printf("\nApproximate value at x = %.3f is f(x) = %.3f\n", xp, sum);
+
+    return 0;
+}
