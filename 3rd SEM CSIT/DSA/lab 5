@@ -1,0 +1,256 @@
+#include <iostream>
+using namespace std;
+
+#define MAX 5
+
+// ---------------- Static Queue ----------------
+class StaticQueue {
+    int q[MAX], front, rear;
+
+public:
+    StaticQueue() {
+        front = rear = -1;
+    }
+
+    void enqueue(int x) {
+        if (rear == MAX - 1) {
+            cout << "Overflow\n";
+            return;
+        }
+        if (front == -1)
+            front = 0;
+        q[++rear] = x;
+        cout << "Inserted\n";
+    }
+
+    void dequeue() {
+        if (front == -1 || front > rear) {
+            cout << "Underflow\n";
+            return;
+        }
+        cout << "Deleted: " << q[front++] << endl;
+    }
+
+    void display() {
+        if (front == -1 || front > rear) {
+            cout << "Queue is Empty\n";
+            return;
+        }
+        for (int i = front; i <= rear; i++)
+            cout << q[i] << " ";
+        cout << endl;
+    }
+
+    void makeEmpty() {
+        front = rear = -1;
+        cout << "Queue Emptied\n";
+    }
+};
+
+// ---------------- Priority Queue ----------------
+class PriorityQueue {
+    int q[MAX], rear;
+
+public:
+    PriorityQueue() {
+        rear = -1;
+    }
+
+    void enqueue(int x) {
+        if (rear == MAX - 1) {
+            cout << "Overflow\n";
+            return;
+        }
+
+        int i;
+        for (i = rear; i >= 0 && q[i] > x; i--)
+            q[i + 1] = q[i];
+
+        q[i + 1] = x;
+        rear++;
+        cout << "Inserted\n";
+    }
+
+    void dequeue() {
+        if (rear == -1) {
+            cout << "Underflow\n";
+            return;
+        }
+
+        cout << "Deleted: " << q[0] << endl;
+        for (int i = 0; i < rear; i++)
+            q[i] = q[i + 1];
+        rear--;
+    }
+
+    void display() {
+        if (rear == -1) {
+            cout << "Queue is Empty\n";
+            return;
+        }
+        for (int i = 0; i <= rear; i++)
+            cout << q[i] << " ";
+        cout << endl;
+    }
+
+    void makeEmpty() {
+        rear = -1;
+        cout << "Queue Emptied\n";
+    }
+};
+
+// ---------------- Circular Queue ----------------
+class CircularQueue {
+    int q[MAX], f, r;
+
+public:
+    CircularQueue() {
+        f = r = -1;
+    }
+
+    void enqueue(int x) {
+        if ((r + 1) % MAX == f) {
+            cout << "Overflow\n";
+            return;
+        }
+
+        if (f == -1)
+            f = 0;
+        r = (r + 1) % MAX;
+        q[r] = x;
+        cout << "Inserted\n";
+    }
+
+    void dequeue() {
+        if (f == -1) {
+            cout << "Underflow\n";
+            return;
+        }
+
+        cout << "Deleted: " << q[f] << endl;
+        if (f == r)
+            f = r = -1;
+        else
+            f = (f + 1) % MAX;
+    }
+
+    void display() {
+        if (f == -1) {
+            cout << "Queue is Empty\n";
+            return;
+        }
+
+        int i = f;
+        while (true) {
+            cout << q[i] << " ";
+            if (i == r)
+                break;
+            i = (i + 1) % MAX;
+        }
+        cout << endl;
+    }
+
+    void makeEmpty() {
+        f = r = -1;
+        cout << "Queue Emptied\n";
+    }
+};
+
+// ---------------- Main Function ----------------
+int main() {
+    StaticQueue sq;
+    PriorityQueue pq;
+    CircularQueue cq;
+
+    int choice, op, val;
+
+    do {
+    	cout << "\n------ Swornim Maharjan ------\n";
+        cout << "------ Queue Menu ------\n";
+        cout << "1. Static Queue\n";
+        cout << "2. Circular Queue\n";
+        cout << "3. Priority Queue\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+
+        case 1:
+            do {
+                cout << "\nStatic Queue\n";
+                cout << "1.Enqueue\n2.Dequeue\n3.Display\n4.Make Empty\n5.Back\n";
+                cout << "Enter choice: ";
+                cin >> op;
+
+                if (op == 1) {
+                    cout << "Enter value: ";
+                    cin >> val;
+                    sq.enqueue(val);
+                }
+                else if (op == 2)
+                    sq.dequeue();
+                else if (op == 3)
+                    sq.display();
+                else if (op == 4)
+                    sq.makeEmpty();
+
+            } while (op != 5);
+            break;
+        case 2:
+            do {
+                cout << "\nCircular Queue\n";
+                cout << "1.Enqueue\n2.Dequeue\n3.Display\n4.Make Empty\n5.Back\n";
+                cout << "Enter choice: ";
+                cin >> op;
+
+                if (op == 1) {
+                    cout << "Enter value: ";
+                    cin >> val;
+                    cq.enqueue(val);
+                }
+                else if (op == 2)
+                    cq.dequeue();
+                else if (op == 3)
+                    cq.display();
+                else if (op == 4)
+                    cq.makeEmpty();
+
+            } while (op != 5);
+            break;
+
+        case 3:
+            do {
+                cout << "\nPriority Queue\n";
+                cout << "1.Enqueue\n2.Dequeue\n3.Display\n4.Make Empty\n5.Back\n";
+                cout << "Enter choice: ";
+                cin >> op;
+
+                if (op == 1) {
+                    cout << "Enter value: ";
+                    cin >> val;
+                    pq.enqueue(val);
+                }
+                else if (op == 2)
+                    pq.dequeue();
+                else if (op == 3)
+                    pq.display();
+                else if (op == 4)
+                    pq.makeEmpty();
+
+            } while (op != 5);
+            break;
+
+        
+        case 4:
+            cout << "Program Exited Successfully\n";
+            break;
+
+        default:
+            cout << "Invalid Choice\n";
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
