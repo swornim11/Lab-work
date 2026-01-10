@@ -5,7 +5,7 @@ int main() {
     float x[20], y[20][20], xp, h, u, sum, term;
     printf("----Swornim Maharjan-----\n");
 
-    printf("--- Newton's Backward Difference Interpolation ---\n");
+    printf("--- Newton's Central Divide Difference Interpolation ---\n");
 
     printf("\nEnter number of data points: ");
     scanf("%d", &n);
