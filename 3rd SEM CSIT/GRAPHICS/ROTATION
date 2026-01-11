@@ -1,0 +1,85 @@
+#include <graphics.h>
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main() {
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, "");
+
+    // Triangle points
+    float x1 = 40, y1 = 70;
+    float x2 = 50, y2 = 50;
+    float x3 = 30, y3 = 60;
+
+    // Pivot point
+    float xr = 30, yr = 30;
+
+    // Angle in radians
+    float angle = 45 * (3.14159 / 180);
+    cout << "-----Swornim Maharjan-----\n";
+    cout << "Triangle\n";
+    cout << "A(" << x1 << "," << y1 << ")\n";
+    cout << "B(" << x2 << "," << y2 << ")\n";
+    cout << "C(" << x3 << "," << y3 << ")\n\n";
+    
+    cout << "STEP 1: Translation to Origin\n";
+    cout << "Subtract pivot point from each vertex\n\n";
+
+    // -------- STEP 1: TRANSLATION --------
+    float x1t = x1 - xr, y1t = y1 - yr;
+    float x2t = x2 - xr, y2t = y2 - yr;
+    float x3t = x3 - xr, y3t = y3 - yr;
+
+    cout << "A(" << x1t << "," << y1t << ")\n";
+    cout << "B(" << x2t << "," << y2t << ")\n";
+    cout << "C(" << x3t << "," << y3t << ")\n\n";
+
+    cout << "STEP 2: Rotation about Origin\n\n";
+
+    // -------- STEP 2: ROTATION --------
+    float x1r = x1t * cos(angle) - y1t * sin(angle);
+    float y1r = x1t * sin(angle) + y1t * cos(angle);
+
+    float x2r = x2t * cos(angle) - y2t * sin(angle);
+    float y2r = x2t * sin(angle) + y2t * cos(angle);
+
+    float x3r = x3t * cos(angle) - y3t * sin(angle);
+    float y3r = x3t * sin(angle) + y3t * cos(angle);
+
+    cout << "After Rotation:\n";
+    cout << "A(" << x1r << "," << y1r << ")\n";
+    cout << "B(" << x2r << "," << y2r << ")\n";
+    cout << "C(" << x3r << "," << y3r << ")\n\n";
+
+    cout << "STEP 3: Translation Back to Pivot\n\n";
+
+    // -------- STEP 3: TRANSLATION BACK --------
+    float x1f = x1r + xr, y1f = y1r + yr;
+    float x2f = x2r + xr, y2f = y2r + yr;
+    float x3f = x3r + xr, y3f = y3r + yr;
+
+    cout << "Final Rotated Coordinates:\n";
+    cout << "A'(" << x1f << "," << y1f << ")\n";
+    cout << "B'(" << x2f << "," << y2f << ")\n";
+    cout << "C'(" << x3f << "," << y3f << ")\n";
+
+    // -------- GRAPHICS --------
+    setcolor(WHITE);
+    circle(xr, yr, 3);  // Pivot point
+
+    setcolor(YELLOW);
+    line(x1, y1, x2, y2);
+    line(x2, y2, x3, y3);
+    line(x3, y3, x1, y1);
+
+    setcolor(RED);
+    line(x1f, y1f, x2f, y2f);
+    line(x2f, y2f, x3f, y3f);
+    line(x3f, y3f, x1f, y1f);
+
+    getch();
+    closegraph();
+    return 0;
+}
