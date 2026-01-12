@@ -1,0 +1,42 @@
+#include <stdio.h>
+
+int main() {
+    int n, i;
+    float x[20], y[20];
+    float sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+    float a, b;
+    printf("---Swornim Maharjan---\n");
+
+    printf("Least Square Approximation (y = a + bx)\n");
+    printf("Enter number of data points: ");
+    scanf("%d", &n);
+
+    /* Input x values */
+    printf("\nEnter values of x:\n");
+    for (i = 0; i < n; i++) {
+        scanf("%f", &x[i]);
+    }
+
+    /* Input y values */
+    printf("\nEnter values of y:\n");
+    for (i = 0; i < n; i++) {
+        scanf("%f", &y[i]);
+    }
+
+    /* Calculate sums */
+    for (i = 0; i < n; i++) {
+        sumX  += x[i];
+        sumY  += y[i];
+        sumXY += x[i] * y[i];
+        sumX2 += x[i] * x[i];
+    }
+
+    /* Calculate coefficients */
+    b = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+    a = (sumY - b * sumX) / n;
+
+    printf("\nBest fit line is:\n");
+    printf("y = %.4f + %.4fx\n", a, b);
+
+    return 0;
+}
