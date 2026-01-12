@@ -1,0 +1,53 @@
+#include <stdio.h>
+
+int main() {
+    int n, i;
+    float x[20], y[20];
+    float sx = 0, sx2 = 0, sx3 = 0, sx4 = 0;
+    float sy = 0, sxy = 0, sx2y = 0;
+    float a, b, c;
+    float d, d1, d2, d3;
+    printf("----Swornim Maharjan----\n");
+
+    printf("Least Square Approximation (Polynomial Fit)\n");
+    printf("Curve: y = a + bx + cx^2\n");
+
+    printf("\nEnter number of data points: ");
+    scanf("%d", &n);
+
+    printf("\nEnter values of x:\n");
+    for (i = 0; i < n; i++) {
+        scanf("%f", &x[i]);
+    }
+
+    printf("\nEnter values of y:\n");
+    for (i = 0; i < n; i++) {
+        scanf("%f", &y[i]);
+    }
+
+    /* Calculate sums */
+    for (i = 0; i < n; i++) {
+        sx   += x[i];
+        sx2  += x[i] * x[i];
+        sx3  += x[i] * x[i] * x[i];
+        sx4  += x[i] * x[i] * x[i] * x[i];
+        sy   += y[i];
+        sxy  += x[i] * y[i];
+        sx2y += x[i] * x[i] * y[i];
+    }
+
+    /* Solving normal equations using determinants (Cramer's Rule) */
+    d  = n*(sx2*sx4 - sx3*sx3) - sx*(sx*sx4 - sx2*sx3) + sx2*(sx*sx3 - sx2*sx2);
+    d1 = sy*(sx2*sx4 - sx3*sx3) - sx*(sxy*sx4 - sx3*sx2y) + sx2*(sxy*sx3 - sx2*sx2y);
+    d2 = n*(sxy*sx4 - sx3*sx2y) - sy*(sx*sx4 - sx2*sx3) + sx2*(sx*sx2y - sxy*sx2);
+    d3 = n*(sx2*sx2y - sxy*sx3) - sx*(sx*sx2y - sxy*sx2) + sy*(sx*sx3 - sx2*sx2);
+
+    a = d1 / d;
+    b = d2 / d;
+    c = d3 / d;
+
+    printf("\nBest fit polynomial is:\n");
+    printf("y = %.4f + %.4fx + %.4fx^2\n", a, b, c);
+
+    return 0;
+}
