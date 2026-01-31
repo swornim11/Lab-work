@@ -1,0 +1,38 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+void towerOfHanoi(int n, char source, char temp, char dest, int &step){
+    if (n == 1) {
+        step++;
+        cout << "Step " << step << ": Move disk 1 from " << source << " to " << dest << endl;
+        return;
+    }
+
+    // Move n-1 disks from source to temp
+    towerOfHanoi(n - 1, source, dest, temp, step);
+
+    // Move nth disk from source to dest
+    step++;
+    cout << "Step " << step << ": Move disk " << n << " from " << source << " to " << dest << endl;
+
+    // Move n-1 disks from temp to dest
+    towerOfHanoi(n - 1, temp, source, dest, step);
+}
+
+int main(){
+    int n;
+    cout<<"-----Swornim Maharjan----"<<endl;
+    cout << "Enter the number of disks: ";
+    cin >> n;
+
+    int steps = pow(2, n) - 1;
+    cout << "Total number of steps = " << steps << endl;
+
+    cout << "\nSteps to solve Tower of Hanoi with " << n << " disks:\n";
+
+    int stepCounter = 0;
+    towerOfHanoi(n, 'A', 'B', 'C', stepCounter);
+
+    return 0;
+}
