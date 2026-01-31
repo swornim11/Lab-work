@@ -1,0 +1,92 @@
+#include <iostream>
+#include <graphics.h>
+#include <cmath>
+using namespace std;
+
+bool liangBarsky(double x1, double y1, double x2, double y2,
+                 double xmin, double ymin, double xmax, double ymax,
+                 double &cx1, double &cy1, double &cx2, double &cy2)
+{
+    double dx = x2 - x1;
+    double dy = y2 - y1;
+
+    double p[4] = { -dx, dx, -dy, dy };
+    double q[4] = { x1 - xmin, xmax - x1, y1 - ymin, ymax - y1 };
+
+    double u1 = 0.0;
+    double u2 = 1.0;
+
+    const double EPS = 1e-9;
+
+    for (int i = 0; i < 4; i++)
+    {
+        // Line parallel to clipping edge
+        if (fabs(p[i]) < EPS)
+        {
+            if (q[i] < 0)
+                return false; // Completely outside
+        }
+        else
+        {
+            double u = q[i] / p[i];
+
+            if (p[i] < 0)
+            {
+                if (u > u2) return false;
+                u1 = max(u1, u);
+            }
+            else
+            {
+                if (u < u1) return false;
+                u2 = min(u2, u);
+            }
+        }
+    }
+
+    cx1 = x1 + u1 * dx;
+    cy1 = y1 + u1 * dy;
+    cx2 = x1 + u2 * dx;
+    cy2 = y1 + u2 * dy;
+
+    return true;
+}
+
+int main()
+{
+    double x1, y1, x2, y2;
+    double xmin, ymin, xmax, ymax;
+    double cx1, cy1, cx2, cy2;
+    cout << "=====Swornim Maharjan=====\n";
+    cout << "===Liang Brasky===\n";
+    cout << "Enter line endpoints (x1 y1 x2 y2): ";
+    cin >> x1 >> y1 >> x2 >> y2;
+
+    cout << "Enter clipping window (xmin ymin xmax ymax): ";
+    cin >> xmin >> ymin >> xmax >> ymax;
+
+    initwindow(800, 600, "Liang–Barsky Line Clipping");
+
+    // Draw clipping window
+    setcolor(WHITE);
+    rectangle(xmin, ymin, xmax, ymax);
+
+    // Original line
+    setcolor(RED);
+    line(x1, y1, x2, y2);
+
+    if (liangBarsky(x1, y1, x2, y2,
+                    xmin, ymin, xmax, ymax,
+                    cx1, cy1, cx2, cy2))
+    {
+        setcolor(GREEN);
+        line(cx1, cy1, cx2, cy2);
+    }
+    else
+    {
+        outtextxy(10, 10, "Line rejected");
+    }
+
+    getch();
+    closegraph();
+    return 0;
+}
