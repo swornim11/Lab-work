@@ -1,0 +1,28 @@
+#include<iostream>
+using namespace std;
+
+int fact(int n){
+    cout << "\nfact(" << n << ") called" << endl;
+
+    if(n == 0){
+        cout << "Returning 1" << endl;
+        return 1;
+    }
+
+    int result = n * fact(n - 1);
+    cout << "Returning " << result << " from fact(" << n << ")" << endl;
+
+    return result;
+}
+
+int main(){
+    int n;
+    cout<<"-----Swornim Maharjan----"<<endl;
+    cout << "Enter the number: ";
+    cin >> n;
+
+    cout << "\n--- Recursive Steps ---\n";
+    cout << "\nFactorial of " << n << " (" << n << "!) = " << fact(n) << endl;
+
+    return 0;
+}
