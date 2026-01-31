@@ -1,0 +1,26 @@
+#include<iostream>
+using namespace std;
+
+int gcd(int a, int b){
+	cout<<"\n gcd("<<a<<","<<b<<") called"<<endl;
+	if(b==0){
+	   cout<<"Returning "<<a<< endl;
+	   return a;
+	}
+	else{
+	cout<<"Returning gcd("<<b<<","<<a%b<<")"<<endl;
+	 return gcd(b,a % b);
+	}
+	
+}
+
+int main(){
+	int a,b;
+	cout<<"-----Swornim Maharjan----"<<endl;
+	cout<<"Enter the value of a and b: ";
+	cin>>a>>b;
+	
+	cout<<"\n---------------Recursive Steps-----------"<<endl;
+	cout<<"\nGCD("<<a<<","<<b<<")"<<":"<<gcd(a,b);
+return 0;
+}
